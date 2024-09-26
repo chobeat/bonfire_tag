@@ -211,12 +211,6 @@ defmodule Bonfire.Tag do
       when is_binary(id_or_username_or_url),
       do: maybe_find_tag(nil, id_or_username_or_url)
 
-  def maybe_taxonomy_tag(user, id) do
-    if Bonfire.Common.Extend.extension_enabled?(Bonfire.TaxonomySeeder.TaxonomyTags) do
-      Bonfire.TaxonomySeeder.TaxonomyTags.maybe_make_category(user, id)
-    end
-  end
-
   ### Functions for tagging things ###
 
   def get_mentions_from_changeset(%{changes: %{post_content: %{changes: %{mentions: mentions}}}}),
@@ -314,16 +308,6 @@ defmodule Bonfire.Tag do
     |> tag_something(user, thing, ..., boost_category_mentions?)
   end
 
-  # def maybe_tag(user, thing, text, boost_category_mentions?) when is_binary(text) do
-  #   tags = if text != "", do: Bonfire.Tag.Autocomplete.find_all_tags(text) |> debug # TODO, switch to TextContent.Process?
-  #   if is_map(tags) or (is_list(tags) and tags != []) do
-  #     maybe_tag(user, thing, tags, boost_category_mentions?)
-  #   else
-  #     debug("Bonfire.Tag - no matches in '#{text}'")
-  #     {:ok, thing}
-  #   end
-  # end
-  # otherwise maybe we have tagnames inline in the text assocs of the object?
   def maybe_tag(user, obj, _, boost_category_mentions?),
     do:
       maybe_tag(

@@ -173,31 +173,6 @@ defmodule Bonfire.Tag.Autocomplete do
     end
   end
 
-  def find_all_tags(content) do
-    # debug(prefixes: @prefixes)
-
-    # FIXME?
-    words =
-      content
-      |> HtmlEntities.decode()
-      |> tags_split()
-      |> debug("words")
-
-    if words do
-      # tries =
-      words
-      |> try_all_prefixes()
-      # |> debug
-      |> Enum.map(&filter_results(&1))
-      |> List.flatten()
-      |> Enums.filter_empty([])
-
-      # |> IO.inspect
-
-      # debug(find_all_tags: tries)
-    end
-  end
-
   def filter_results(res) when is_list(res) do
     Enum.map(res, &filter_results(&1))
   end

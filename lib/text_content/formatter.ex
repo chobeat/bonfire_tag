@@ -206,24 +206,4 @@ defmodule Bonfire.Tag.TextContent.Formatter do
   defp render_link(display_url, attrs, _html) do
     Linkify.Builder.format_url(attrs, display_url)
   end
-
-  # @doc """
-  # Escapes a special characters in mention names (not used right now)
-  # """
-  # def mentions_escape(text, options \\ []) do
-  #   options =
-  #     Keyword.merge(options,
-  #       mention: true,
-  #       url: false,
-  #       mention_handler: &Bonfire.Tag.TextContent.Formatter.escape_mention_handler/4
-  #     )
-
-  #   if options[:safe_mention] && Regex.named_captures(@safe_mention_regex, text) do
-  #     %{"mentions" => mentions, "rest" => rest} = Regex.named_captures(@safe_mention_regex, text)
-
-  #     Linkify.link(mentions, options) <> Linkify.link(rest, options)
-  #   else
-  #     Linkify.link(text, options)
-  #   end
-  # end
 end
